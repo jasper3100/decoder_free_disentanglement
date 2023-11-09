@@ -1,0 +1,28 @@
+run:
+    restore_from: continue
+    visualize: append
+    do: ['train', 'eval' ,'visualize'] # I added "visualize" here
+    gpu_id: 0
+log:
+    project: project_name_placeholder
+    group: base
+    wandb_mode: run
+    level: info
+data:
+    num_workers: 8
+train:
+    #iterations: 300100 #300000
+    lr: 0.0001
+    batch_size: 64
+    checkpoint_every: 1000000
+    checkpoint_first: 0
+    loss: betavae #factorizedsupportvae
+    rec_dist: bernoulli #laplace #bernoulli #gaussian
+    supervision: none
+model:
+    name: vae_montero_large # vae_locatello
+vae_locatello:
+    latent_dim: 10 
+eval:
+    batch_size: 64 #1024
+    mode: last

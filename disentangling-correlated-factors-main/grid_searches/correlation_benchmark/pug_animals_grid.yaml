@@ -1,0 +1,27 @@
+##################################### Shapes-3D
+################ Hausdorff Factorized Support
+### Uses best HFS Setup for Shapes3D on Beta-VAE
+-   data:
+        name: pug_animals
+        root: '/mnt/qb/akata/datasets/PUG_ANIMALS/' 
+    log:
+        project: 'animals2betavae'        
+    constraints:
+        file: 'none'
+        correlations_file: [
+            'none',
+            #'iclr_grid_searches/avail_correlations.yaml:shapes3d_single_1_01', #file path needs to be adjusted!!! also for the rows below, current path doesn't exist in this directory
+            #'iclr_grid_searches/avail_correlations.yaml:shapes3d_single_2_01',
+            #'iclr_grid_searches/avail_correlations.yaml:shapes3d_single_3_01',
+        ]
+    train:
+        epochs: 39 #39
+        seed: '0-1' #'0-9'
+        loss: betavae
+    betavae:
+        beta: [1, 2, 4, 8, 16, 32]
+    #factorizedsupportvae:
+        #beta: 3 #[2, 6] #original(?): [0, 1, 2, 4, 6, 8, 10, 16]
+        #gamma: 10 #[2, 10, 30] #original(?): [0.1, 1, 10, 100, 1000, 10000]  
+        #matching: 'hausdorff_hard'
+        # use_rec: 0 # means: use reconstruction loss = false # I added this line

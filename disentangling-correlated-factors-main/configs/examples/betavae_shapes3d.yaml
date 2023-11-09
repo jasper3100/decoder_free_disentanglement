@@ -1,0 +1,34 @@
+run:
+    restore_from: continue
+    visualize: append
+    do: ['train','eval','visualize']
+    gpu_id: 0
+log:
+    project: betavae_with_scale_loss_one
+    group: betavae_shapes3d_t6
+    wandb_mode: run
+    level: info
+    wandb_allow_val_change: True # I added this line
+data:
+    name: shapes3d
+    num_workers: 12
+train:
+    epochs: 10 #20
+    lr: 0.0001
+    batch_size: 64
+    checkpoint_every: 10
+    checkpoint_first: 1
+    loss: betavae
+    rec_dist: bernoulli
+betavae:
+    beta: 16
+    log_components: False
+    reg_mode: 'minimal_support' # I added this line
+    reg_range: [0., 1.] # I added this line
+    delta: 1. # I added this line
+model:
+    name: vae_montero_small
+vae_locatello:
+    latent_dim: 10
+eval:
+    batch_size: 1024
